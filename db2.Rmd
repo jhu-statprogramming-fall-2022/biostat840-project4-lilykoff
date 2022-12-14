@@ -5,11 +5,7 @@ output:
     orientation: columns
     vertical_layout: fill
 runtime: shiny
-resource_files:
-- data/v17.RDS
-- data/data2/me.RDS
-- data2/me.RDS
-- dashboard_cache/html/__packages
+
 ---
 
 ```{r setup, include=FALSE, cache=T}
@@ -21,72 +17,13 @@ library(tidycensus)
 library(tidyverse)
 library(treemapify)
 library(sf)
+library(DT)
 library(stringr)
-library(ggcounty)
+library(mapproj)
+# library(ggcounty)
 # census_api_key("7dbb06ee22682429da281391496c9628376b9358", install=T)
-if (file.exists("data")){
-          
-        # specifying the working directory
-        setwd("data")
-        v17 <- readRDS("v17.RDS")
-
-} else {
-          
-        # create a new sub directory inside
-        # the main path
-        dir.create("data")
-          
-        # specifying the working directory
-        setwd("data")
-        v17 <- load_variables(2017, "acs5", cache = TRUE)
-        saveRDS(v17, "v17.RDS")
-        
-}
-# need to figure out which variables to get 
-# v17 %>% filter(geography=="county") %>% select(concept) %>% distinct()
-names <-
-  v17 %>% filter(
-    geography == "county" &
-      concept %in% c(
-        "TRAVEL TIME TO WORK FOR WORKPLACE GEOGRAPHY",
-        "MEANS OF TRANSPORTATION TO WORK FOR WORKPLACE GEOGRAPHY",
-        "TIME ARRIVING AT WORK FROM HOME FOR WORKPLACE GEOGRAPHY"
-      )
-  ) %>% dplyr::select(c(name, concept, label)) %>% select(name) %>% unlist() %>% unname()
-names_key <-
-  v17 %>% filter(
-    geography == "county" &
-      concept %in% c(
-        "TRAVEL TIME TO WORK FOR WORKPLACE GEOGRAPHY",
-        "MEANS OF TRANSPORTATION TO WORK FOR WORKPLACE GEOGRAPHY",
-        "TIME ARRIVING AT WORK FROM HOME FOR WORKPLACE GEOGRAPHY"
-      )
-  ) %>% dplyr::select(c(name, concept, label))
-
-if (file.exists("data2")){
-          
-        # specifying the working directory
-        setwd("data2")
-        me <- readRDS("me.RDS")
-
-} else {
-          
-        # create a new sub directory inside
-        # the main path
-        dir.create("data2")
-          
-        # specifying the working directory
-        setwd("data2")
-        me <- get_acs(
-          geography = "county",
-          variables = names,
-          state = "ME",
-          year = 2018
-        ) 
-        saveRDS(me, "me.RDS")
-        
-}
-me <-  me %>% left_join(names_key, by = c("variable" = "name"))
+me <- read.csv("me.csv")[,-1]
+maine <- readRDS("maine.RDS")
 me_means_transport <-
   me %>% filter(
     concept == "MEANS OF TRANSPORTATION TO WORK FOR WORKPLACE GEOGRAPHY" &
@@ -159,7 +96,7 @@ Column {data-width=500}
 ### By Bicycle
 
 ```{r}
-maine <- ggcounty("Maine")
+
 gg <- maine$gg
 # add a new geom with our population (choropleth)
 
@@ -206,7 +143,7 @@ Column
 ### Public Transportation
     
 ```{r}
-maine <- ggcounty("Maine")
+
 gg <- maine$gg
 # add a new geom with our population (choropleth)
 
@@ -246,7 +183,7 @@ gg + geom_map(data=me_small, map=maine$map,
 ### Car, Truck, or Van Alone 
     
 ```{r}
-maine <- ggcounty("Maine")
+
 gg <- maine$gg
 # add a new geom with our population (choropleth)
 

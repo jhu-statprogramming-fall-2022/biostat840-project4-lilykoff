@@ -1,0 +1,17 @@
+shiny
+flexdashboard
+leaflet
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+tidycensus
+treemapify
+sf
+ggcounty
+DT
