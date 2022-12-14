@@ -1,0 +1,14 @@
+name: MaineACSTransportationData
+title: MaineACSTransportationData
+username:
+account: lilykoff
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 7893633
+bundleId: 6637337
+url: https://lilykoff.shinyapps.io/MaineACSTransportationData/
+when: 1671045533.84296
+lastSyncTime: 1671045533.84297
+asMultiple: FALSE
+asStatic: FALSE
+additionalFiles: dashboard_cache/html/__packages
