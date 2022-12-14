@@ -260,7 +260,7 @@ gg + geom_map(data=me_small, map=maine$map,
 ```
 
 
-# Interactive: Compare Commuting by County 
+# Compare Commuting by County 
 
 Column {.sidebar}
 -----------------------------------------------------------------------
@@ -268,7 +268,7 @@ Column {.sidebar}
 Commuting data in Maine by county
 
 ```{r}
-checkboxGroupInput("counties", label = "Choose first county",
+checkboxGroupInput("counties", label = "Choose counties",
             choices = c("Androscoggin" = "Androscoggin County, Maine", "Aroostook" = "Aroostook County, Maine",    "Cumberland" = "Cumberland County, Maine" ,  "Franklin" ="Franklin County, Maine",    "Hancock"="Hancock County, Maine",      "Kennebec"="Kennebec County, Maine",     "Knox"="Knox County, Maine",  "Lincoln"="Lincoln County, Maine",      "Oxford" ="Oxford County, Maine",      "Penobscot" ="Penobscot County, Maine",   "Piscataquis"= "Piscatiquis County, Maine",  "Sagadahoc" = "Sagadahoc County, Maine" ,   "Somerset"="Somerset County, Maine"  ,   "Waldo" = "Waldo County, Maine",       "Washington" = "Washington County, Maine"  , "York"="York County, Maine" ), selected = c("Androscoggin County, Maine", "Aroostook County, Maine"))
 
 
@@ -325,12 +325,13 @@ df <- me %>% filter(NAME %in% input$counties & concept == "MEANS OF TRANSPORTATI
 ```
 
 
-# Interactive: Compare Arrival Times and Length of Commute by County
+# Compare Arrival Times and Length of Commute by County
+
 
 Column {.sidebar}
 -----------------------------------------------------------------------
 
-Commuting data in Maine by county
+
 
 ```{r}
 checkboxGroupInput("countiesradio", label = "Choose counties",
